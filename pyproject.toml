@@ -25,10 +25,8 @@ classifiers = [
 ]
 
 dependencies = [
-    "pydantic",
-    "python-dateutil",
-    "pydantic_settings",
-    "ulid-py",
+    "oltl @ git+https://github.com/osoekawaitlab/ol-type-library",
+    "numpy",
 ]
 
 [project.urls]
