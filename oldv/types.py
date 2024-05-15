@@ -2,7 +2,7 @@ from typing import TypeAlias
 
 import numpy as np
 import numpy.typing as npt
-from oltl import BaseBytes
+from oltl import BaseBytes, NonEmptyStringMixIn
 
 Scalar: TypeAlias = np.float32
 
@@ -26,3 +26,13 @@ class Vector(BaseBytes):
     @classmethod
     def from_array(cls, array: npt.NDArray[Scalar]) -> "Vector":
         return cls(array.tobytes())
+
+
+class DocumentContent(NonEmptyStringMixIn):
+    """The content of a document.
+
+    The content of a document is a non-empty string.
+
+    """
+
+    pass

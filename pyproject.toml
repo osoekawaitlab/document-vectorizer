@@ -27,6 +27,8 @@ classifiers = [
 dependencies = [
     "oltl @ git+https://github.com/osoekawaitlab/ol-type-library",
     "numpy",
+    "scikit-learn",
+    "pydantic",
 ]
 
 [project.urls]
