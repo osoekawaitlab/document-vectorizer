@@ -1,5 +1,5 @@
 from .document_vectorizers.base import BaseDocumentVectorizerCore
-from .types import DocumentContent, Vector
+from .models import Document, DocumentVector
 
 
 class DocumentVectorizerApp:
@@ -10,5 +10,5 @@ class DocumentVectorizerApp:
     def core(self) -> BaseDocumentVectorizerCore:
         return self._core
 
-    def vectorize(self, text: DocumentContent) -> Vector:
-        return self.core.vectorize(text)
+    def vectorize(self, doc: Document) -> DocumentVector:
+        return self.core.vectorize(doc)
