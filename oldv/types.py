@@ -36,3 +36,13 @@ class DocumentContent(NonEmptyStringMixIn):
     """
 
     pass
+
+
+class PickleBytes(BaseBytes):
+    """A byte buffer that contains a pickled object.
+
+    This class is a wrapper around a byte buffer that contains a pickled object.
+
+    """
+
+    pass

@@ -1,11 +1,16 @@
+import pickle
 from collections.abc import Sequence
 
 from sklearn.feature_extraction.text import CountVectorizer
 
-from ..models import Document, DocumentVector
+from ..models import BaseModel, Document, DocumentVector
 from ..settings import CountVectorizerSettings
-from ..types import Scalar, Vector
+from ..types import PickleBytes, Scalar, Vector
 from .base import BaseDocumentVectorizerCore
+
+
+class SerializedCountVectorizer(BaseModel):
+    serialized_count_vectorizer: PickleBytes
 
 
 class CountVectorizerCore(BaseDocumentVectorizerCore):
@@ -25,4 +30,12 @@ class CountVectorizerCore(BaseDocumentVectorizerCore):
     def create(cls, corpus: Sequence[Document], settings: CountVectorizerSettings) -> "CountVectorizerCore":
         count_vectorizer = CountVectorizer(analyzer=settings.analyzer.lower(), dtype=Scalar)
         count_vectorizer.fit([d.content for d in corpus])
+        return cls(count_vectorizer=count_vectorizer)
+
+    def serialize(self) -> SerializedCountVectorizer:
+        return SerializedCountVectorizer(serialized_count_vectorizer=PickleBytes(pickle.dumps(self.count_vectorizer)))
+
+    @classmethod
+    def deserialize(cls, serialized: SerializedCountVectorizer) -> "CountVectorizerCore":
+        count_vectorizer = pickle.loads(serialized.serialized_count_vectorizer)
         return cls(count_vectorizer=count_vectorizer)
