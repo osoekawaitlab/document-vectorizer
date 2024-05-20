@@ -59,6 +59,9 @@ dev=[
 ]
 prod=[
 ]
+sentence-transformers=[
+    "sentence-transformers",
+]
 
 
 [tool.pytest.ini_options]
