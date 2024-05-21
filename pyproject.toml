@@ -14,14 +14,14 @@ dynamic = [
 ]
 readme = "README.md"
 license = {file = "LICENSE"}
-requires-python = ">=3.11"
+requires-python = ">=3.10"
 
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Natural Language :: Japanese",
     "Operating System :: OS Independent",
     "Programming Language :: Python",
-    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.10",
 ]
 
 dependencies = [
@@ -69,19 +69,19 @@ addopts = ["-sv", "--doctest-modules", "--cov=oldv", "--cov-report=xml", "--cov-
 testpaths = ["tests", "oldv"]
 filterwarnings = [
     "error",
-    "ignore::FutureWarning",
+    "ignore: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.",
 ]
 
 [tool.black]
 line-length = 120
-target-version = ['py311']
+target-version = ['py310']
 
 [tool.flake8]
 max-line-length = 120
 extend-ignore = "E203,E701"
 
 [tool.mypy]
-python_version = "3.11"
+python_version = "3.10"
 warn_return_any = true
 warn_unused_configs = true
 plugins = ["pydantic.mypy"]
@@ -97,7 +97,7 @@ profile = "black"
 legacy_tox_ini = """
     [tox]
     skipsdist = true
-    envlist = py311
+    envlist = py310
 
     [testenv]
     setenv = 
