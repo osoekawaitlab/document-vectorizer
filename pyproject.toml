@@ -14,14 +14,14 @@ dynamic = [
 ]
 readme = "README.md"
 license = {file = "LICENSE"}
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Natural Language :: Japanese",
     "Operating System :: OS Independent",
     "Programming Language :: Python",
-    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
 ]
 
 dependencies = [
@@ -69,18 +69,19 @@ addopts = ["-sv", "--doctest-modules", "--cov=oldv", "--cov-report=xml", "--cov-
 testpaths = ["tests", "oldv"]
 filterwarnings = [
     "error",
+    "ignore::FutureWarning",
 ]
 
 [tool.black]
 line-length = 120
-target-version = ['py310']
+target-version = ['py311']
 
 [tool.flake8]
 max-line-length = 120
 extend-ignore = "E203,E701"
 
 [tool.mypy]
-python_version = "3.10"
+python_version = "3.11"
 warn_return_any = true
 warn_unused_configs = true
 plugins = ["pydantic.mypy"]
@@ -96,7 +97,7 @@ profile = "black"
 legacy_tox_ini = """
     [tox]
     skipsdist = true
-    envlist = py310
+    envlist = py311
 
     [testenv]
     setenv = 
