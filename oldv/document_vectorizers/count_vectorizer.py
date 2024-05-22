@@ -3,17 +3,16 @@ from collections.abc import Sequence
 
 from sklearn.feature_extraction.text import CountVectorizer
 
-from ..models import BaseModel, Document, DocumentVector
+from ..models import Document, DocumentVector
 from ..settings import CountVectorizerSettings
 from ..types import PickleBytes, Scalar, Vector
-from .base import BaseDocumentVectorizerCore
+from .base import BaseSerializedDocumentVectorizer, SupportsSerializationMixIn
 
 
-class SerializedCountVectorizer(BaseModel):
-    serialized_count_vectorizer: PickleBytes
+class SerializedCountVectorizer(BaseSerializedDocumentVectorizer): ...
 
 
-class CountVectorizerCore(BaseDocumentVectorizerCore):
+class CountVectorizerCore(SupportsSerializationMixIn[SerializedCountVectorizer]):
     def __init__(self, count_vectorizer: CountVectorizer):
         super(CountVectorizerCore, self).__init__()
         self._count_vectorizer = count_vectorizer
@@ -33,9 +32,11 @@ class CountVectorizerCore(BaseDocumentVectorizerCore):
         return cls(count_vectorizer=count_vectorizer)
 
     def serialize(self) -> SerializedCountVectorizer:
-        return SerializedCountVectorizer(serialized_count_vectorizer=PickleBytes(pickle.dumps(self.count_vectorizer)))
+        return SerializedCountVectorizer(
+            serialized_document_vectorizer=PickleBytes(pickle.dumps(self.count_vectorizer))
+        )
 
     @classmethod
-    def deserialize(cls, serialized: SerializedCountVectorizer) -> "CountVectorizerCore":
-        count_vectorizer = pickle.loads(serialized.serialized_count_vectorizer)
+    def deserialize(cls, s: SerializedCountVectorizer) -> "CountVectorizerCore":
+        count_vectorizer = pickle.loads(s.serialized_document_vectorizer)
         return cls(count_vectorizer=count_vectorizer)
