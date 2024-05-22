@@ -61,6 +61,7 @@ prod=[
 ]
 sentence-transformers=[
     "sentence-transformers",
+    "einops",
 ]
 
 
