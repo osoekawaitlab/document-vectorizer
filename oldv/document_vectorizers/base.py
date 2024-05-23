@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from collections.abc import Sequence
 from typing import Generic, Type, TypeVar
 
 from ..models import BaseModel, Document, DocumentVector
@@ -28,3 +29,8 @@ class SupportsSerializationMixIn(BaseDocumentVectorizerCore, Generic[SerializedD
     def deserialize(
         cls: Type[DocumentVectorizerCoreT], s: SerializedDocumentVectorizerCoreT
     ) -> DocumentVectorizerCoreT: ...
+
+
+class SupportsBatchVectorizationMixIn(BaseDocumentVectorizerCore):
+    @abstractmethod
+    def batch_vectorize(self, docs: Sequence[Document]) -> Sequence[DocumentVector]: ...

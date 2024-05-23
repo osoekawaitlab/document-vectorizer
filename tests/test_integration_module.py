@@ -3,7 +3,7 @@ import numpy as np
 import oldv
 
 
-def test_oldv_as_module() -> None:
+def test_oldv_as_module_vectorize() -> None:
     core = oldv.CountVectorizerCore.create(
         [
             oldv.Document(content=oldv.DocumentContent("good")),
