@@ -12,10 +12,17 @@ def test_vectorize(mock_vectorizer_core: MagicMock) -> None:
 
 
 def test_batch_vectorize_with_unsupported_core(mock_vectorizer_core: MagicMock) -> None:
-    mock_vectorizer_core.supports_batch = False
     sut = DocumentVectorizerApp(core=mock_vectorizer_core)
     res = sut.batch_vectorize([Document(content="Hello world"), Document(content="Good night world")])
     assert res == [mock_vectorizer_core.vectorize.return_value, mock_vectorizer_core.vectorize.return_value]
     mock_vectorizer_core.vectorize.assert_has_calls(
         [call(Document(content="Hello world")), call(Document(content="Good night world"))]
     )
+
+
+def test_batch_vectorize_with_supported_core(mock_vectorizer_core_supports_batch: MagicMock) -> None:
+    sut = DocumentVectorizerApp(core=mock_vectorizer_core_supports_batch)
+    arg = [Document(content="Hello world"), Document(content="Good night world")]
+    res = sut.batch_vectorize(arg)
+    assert res == mock_vectorizer_core_supports_batch.batch_vectorize.return_value
+    mock_vectorizer_core_supports_batch.batch_vectorize.assert_called_once_with(arg)
