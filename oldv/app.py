@@ -1,3 +1,5 @@
+from collections.abc import Sequence
+
 from .document_vectorizers.base import BaseDocumentVectorizerCore
 from .models import Document, DocumentVector
 
@@ -12,3 +14,6 @@ class DocumentVectorizerApp:
 
     def vectorize(self, doc: Document) -> DocumentVector:
         return self.core.vectorize(doc)
+
+    def batch_vectorize(self, docs: Sequence[Document]) -> Sequence[DocumentVector]:
+        return [self.vectorize(doc) for doc in docs]
