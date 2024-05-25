@@ -1,11 +1,13 @@
+from typing import Sequence
+
 from sentence_transformers import SentenceTransformer
 
 from ..models import Document, DocumentVector
 from ..types import Vector
-from .base import BaseDocumentVectorizerCore
+from .base import SupportsBatchVectorizationMixIn
 
 
-class NomicEmbedTextCore(BaseDocumentVectorizerCore):
+class NomicEmbedTextCore(SupportsBatchVectorizationMixIn):
     def __init__(self, model: SentenceTransformer):
         super(NomicEmbedTextCore, self).__init__()
         self._model = model
@@ -16,3 +18,7 @@ class NomicEmbedTextCore(BaseDocumentVectorizerCore):
     @classmethod
     def create(cls) -> "NomicEmbedTextCore":
         return cls(SentenceTransformer("nomic-ai/nomic-embed-text-v1.5", trust_remote_code=True))
+
+    def batch_vectorize(self, docs: Sequence[Document]) -> Sequence[DocumentVector]:
+        arr = self._model.encode([doc.content for doc in docs])
+        return [DocumentVector(vector=Vector.from_array(v)) for v in arr]
