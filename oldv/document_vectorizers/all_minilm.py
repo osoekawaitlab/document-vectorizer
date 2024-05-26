@@ -1,11 +1,13 @@
+from typing import Sequence
+
 from sentence_transformers import SentenceTransformer
 
 from ..models import Document, DocumentVector
 from ..types import Vector
-from .base import BaseDocumentVectorizerCore
+from .base import SupportsBatchVectorizationMixIn
 
 
-class AllMiniLmVectorizerCore(BaseDocumentVectorizerCore):
+class AllMiniLmVectorizerCore(SupportsBatchVectorizationMixIn):
     def __init__(self, model: SentenceTransformer):
         super(AllMiniLmVectorizerCore, self).__init__()
         self._model = model
@@ -16,3 +18,6 @@ class AllMiniLmVectorizerCore(BaseDocumentVectorizerCore):
     @classmethod
     def create(cls) -> "AllMiniLmVectorizerCore":
         return cls(SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2"))
+
+    def batch_vectorize(self, docs: Sequence[Document]) -> Sequence[DocumentVector]:
+        return [DocumentVector(vector=Vector.from_array(v)) for v in self._model.encode([doc.content for doc in docs])]
