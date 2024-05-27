@@ -56,13 +56,12 @@ dev=[
     "types-python-dateutil",
     "factory_boy",
     "polyfactory",
-]
-prod=[
-]
-sentence-transformers=[
     "sentence-transformers",
     "einops",
 ]
+prod=[
+]
+
 [project.scripts]
 oldv = "oldv.interfaces.cli:main"
 
@@ -105,7 +104,7 @@ legacy_tox_ini = """
     setenv = 
         VIRTUALENV_PIP = 24.0
     deps =
-        -e .[dev,sentence-transformers]
+        -e .[dev]
     commands = 
         black oldv tests
         isort oldv tests
