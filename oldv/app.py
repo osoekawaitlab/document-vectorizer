@@ -4,6 +4,7 @@ from .document_vectorizers.base import (
     BaseDocumentVectorizerCore,
     SupportsBatchVectorizationMixIn,
 )
+from .document_vectorizers.factory import create_document_vectorizer_core
 from .models import Document, DocumentVector
 from .settings import DocumentVectorizerAppSettings
 
@@ -25,4 +26,5 @@ class DocumentVectorizerApp:
         return [self.vectorize(doc) for doc in docs]
 
     @classmethod
-    def create(cls, settings: DocumentVectorizerAppSettings) -> "DocumentVectorizerApp": ...
+    def create(cls, settings: DocumentVectorizerAppSettings) -> "DocumentVectorizerApp":
+        return cls(core=create_document_vectorizer_core(settings=settings.document_vectorizer_core_settings))

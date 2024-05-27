@@ -2,6 +2,10 @@ from unittest.mock import MagicMock, call
 
 from oldv.app import DocumentVectorizerApp
 from oldv.models import Document
+from oldv.settings import (
+    AllMiniLmDocumentVectorizerCoreSettings,
+    DocumentVectorizerAppSettings,
+)
 
 
 def test_vectorize(mock_vectorizer_core: MagicMock) -> None:
@@ -26,3 +30,15 @@ def test_batch_vectorize_with_supported_core(mock_vectorizer_core_supports_batch
     res = sut.batch_vectorize(arg)
     assert res == mock_vectorizer_core_supports_batch.batch_vectorize.return_value
     mock_vectorizer_core_supports_batch.batch_vectorize.assert_called_once_with(arg)
+
+
+def test_create(mocker: MagicMock, mock_vectorizer_core: MagicMock) -> None:
+    create_document_vectorizer_core = mocker.patch(
+        "oldv.app.create_document_vectorizer_core", return_value=mock_vectorizer_core
+    )
+    settings = DocumentVectorizerAppSettings(
+        document_vectorizer_core_settings=AllMiniLmDocumentVectorizerCoreSettings()
+    )
+    actual = DocumentVectorizerApp.create(settings=settings)
+    assert actual.core == mock_vectorizer_core
+    create_document_vectorizer_core.assert_called_once_with(settings=settings.document_vectorizer_core_settings)

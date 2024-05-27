@@ -19,19 +19,19 @@ class BaseDocumentVectorizerCoreSettings(BaseSettings):
     type: DocumentVectorizerCoreType
 
 
-class AllMiniLmVectorizerCoreSettings(BaseDocumentVectorizerCoreSettings):
+class AllMiniLmDocumentVectorizerCoreSettings(BaseDocumentVectorizerCoreSettings):
     type: Literal[DocumentVectorizerCoreType.ALL_MINI_LM] = DocumentVectorizerCoreType.ALL_MINI_LM
 
 
-class NomicEmbedTextVectorizerCoreSettings(BaseDocumentVectorizerCoreSettings):
+class NomicEmbedTextDocumentVectorizerCoreSettings(BaseDocumentVectorizerCoreSettings):
     type: Literal[DocumentVectorizerCoreType.NOMIC_EMBED_TEXT] = DocumentVectorizerCoreType.NOMIC_EMBED_TEXT
 
 
-DocumentVectorizerSettings = Annotated[
-    Union[AllMiniLmVectorizerCoreSettings, NomicEmbedTextVectorizerCoreSettings],
+DocumentVectorizerCoreSettings = Annotated[
+    Union[AllMiniLmDocumentVectorizerCoreSettings, NomicEmbedTextDocumentVectorizerCoreSettings],
     Field(discriminator="type"),
 ]
 
 
 class DocumentVectorizerAppSettings(BaseSettings):
-    document_vectorizer: DocumentVectorizerSettings
+    document_vectorizer_core_settings: DocumentVectorizerCoreSettings
