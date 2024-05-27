@@ -2,20 +2,12 @@ import numpy as np
 
 import oldv
 
+from .document_vectorizers.fixtures import all_minilm_hello_world_vector
+
 
 def test_oldv_as_module_vectorize() -> None:
-    core = oldv.CountVectorizerCore.create(
-        [
-            oldv.Document(content=oldv.DocumentContent("good")),
-            oldv.Document(content=oldv.DocumentContent("bye")),
-            oldv.Document(content=oldv.DocumentContent("Hello")),
-            oldv.Document(content=oldv.DocumentContent("world")),
-        ],
-        oldv.CountVectorizerSettings(),
-    )
+    core = oldv.AllMiniLmVectorizerCore.create()
     dv = oldv.DocumentVectorizerApp(core)
     res = dv.vectorize(oldv.Document(content=oldv.DocumentContent("Hello world")))
     assert isinstance(res, oldv.DocumentVector)
-    res2 = dv.vectorize(oldv.Document(content=oldv.DocumentContent("Hello world")))
-    assert res == res2
-    assert (res.vector.array == np.array([0, 0, 1, 1], dtype=oldv.Scalar)).all()
+    assert np.allclose(res.vector.array, all_minilm_hello_world_vector)
