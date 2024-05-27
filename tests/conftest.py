@@ -1,3 +1,4 @@
+import os
 from collections.abc import Generator
 from unittest.mock import MagicMock
 
@@ -28,7 +29,8 @@ def mock_document_vectorizer_app() -> MagicMock:
 
 @fixture
 def patch_empty_environment_variables(mocker: MockerFixture) -> Generator[None, None, None]:
-    mocker.patch("os.environ", {})
+    current_environment_variables = os.environ.copy()
+    mocker.patch("os.environ", {k: v for k, v in current_environment_variables.items() if not k.startswith("OLDV_")})
     yield
 
 
@@ -36,5 +38,5 @@ def patch_empty_environment_variables(mocker: MockerFixture) -> Generator[None, 
 def patch_all_minilm_environment_variable(
     patch_empty_environment_variables: None, mocker: MockerFixture
 ) -> Generator[None, None, None]:
-    mocker.patch("os.environ", {"OLDV_DOCUMENT_VECTORIZER__TYPE": "ALL_MINI_LM"})
+    mocker.patch("os.environ", dict(os.environ, OLDV_DOCUMENT_VECTORIZER_CORE_SETTINGS__TYPE="ALL_MINI_LM"))
     yield

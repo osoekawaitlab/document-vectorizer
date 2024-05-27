@@ -1,4 +1,9 @@
+import json
 from argparse import ArgumentParser
+
+from ..app import DocumentVectorizerApp
+from ..models import Document
+from ..settings import DocumentVectorizerAppSettings
 
 
 def main() -> None:
@@ -9,7 +14,9 @@ def main() -> None:
     vectorize_parser.add_argument("output_file")
     args = parser.parse_args()
     if args.subcommand == "vectorize":
-        text = args.text
+        settings = DocumentVectorizerAppSettings()
+        app = DocumentVectorizerApp.create(settings=settings)
+        document_vector = app.vectorize(doc=Document(content=args.text))
         output_file = args.output_file
         with open(output_file, "w") as f:
-            f.write(f'{{"vector": [{", ".join(str(v) for v in [1.0, 2.0, 3.0])}]}}\n')
+            json.dump({"vector": document_vector.vector.array.tolist()}, f)
