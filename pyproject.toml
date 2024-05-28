@@ -30,6 +30,8 @@ dependencies = [
     "scikit-learn",
     "pydantic",
     "scipy",
+    "sentence-transformers",
+    "einops",
 ]
 
 [project.urls]
@@ -56,8 +58,6 @@ dev=[
     "types-python-dateutil",
     "factory_boy",
     "polyfactory",
-    "sentence-transformers",
-    "einops",
 ]
 prod=[
 ]
