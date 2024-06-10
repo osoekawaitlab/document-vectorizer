@@ -1,8 +1,8 @@
-from typing import TypeAlias
+from typing import TypeAlias, cast
 
 import numpy as np
 import numpy.typing as npt
-from oltl import BaseBytes, NonEmptyStringMixIn
+from oltl import BaseBytes, JsonAcceptable, NonEmptyStringMixIn
 
 Scalar: TypeAlias = np.float32
 
@@ -16,7 +16,6 @@ class Vector(BaseBytes):
     >>> vector = Vector.from_array(np.array([1.0, 2.0, 3.0], dtype=Scalar))
     >>> vector.array
     array([1., 2., 3.], dtype=float32)
-
     """
 
     @property
@@ -26,6 +25,9 @@ class Vector(BaseBytes):
     @classmethod
     def from_array(cls, array: npt.NDArray[Scalar]) -> "Vector":
         return cls(array.tobytes())
+
+    def serialize(self) -> JsonAcceptable:
+        return cast(JsonAcceptable, self.array.tolist())
 
 
 class DocumentContent(NonEmptyStringMixIn):

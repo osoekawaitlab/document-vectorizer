@@ -2,6 +2,7 @@ import os
 from collections.abc import Generator
 from unittest.mock import MagicMock
 
+from fastapi.testclient import TestClient
 from pytest import fixture
 from pytest_mock import MockerFixture
 
@@ -10,6 +11,7 @@ from oldv.document_vectorizers.base import (
     BaseDocumentVectorizerCore,
     SupportsBatchVectorizationMixIn,
 )
+from oldv.interfaces.api.app import gen_api_app
 
 
 @fixture
@@ -40,3 +42,10 @@ def patch_all_minilm_environment_variable(
 ) -> Generator[None, None, None]:
     mocker.patch("os.environ", dict(os.environ, OLDV_DOCUMENT_VECTORIZER_CORE_SETTINGS__TYPE="ALL_MINI_LM"))
     yield
+
+
+@fixture
+def api_app_client(patch_all_minilm_environment_variable: None) -> Generator[TestClient, None, None]:
+    app = gen_api_app()
+    with TestClient(app) as client:
+        yield client
