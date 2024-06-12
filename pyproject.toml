@@ -60,6 +60,7 @@ dev=[
     "factory_boy",
     "polyfactory",
     "httpx",
+    "pytest-random-order",
     "uvicorn",
 ]
 prod=[
@@ -69,7 +70,7 @@ prod=[
 oldv = "oldv.interfaces.cli:main"
 
 [tool.pytest.ini_options]
-addopts = ["-sv", "--doctest-modules", "--ignore=oldv/interfaces/api/main.py", "--cov=oldv", "--cov-report=xml", "--cov-report=term-missing"]
+addopts = ["-sv", "--random-order", "--doctest-modules", "--ignore=oldv/interfaces/api/main.py", "--cov=oldv", "--cov-report=xml", "--cov-report=term-missing"]
 testpaths = ["tests", "oldv"]
 filterwarnings = [
     "error",
