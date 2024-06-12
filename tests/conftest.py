@@ -47,5 +47,4 @@ def patch_all_minilm_environment_variable(
 @fixture
 def api_app_client(patch_all_minilm_environment_variable: None) -> Generator[TestClient, None, None]:
     app = gen_api_app()
-    with TestClient(app) as client:
-        yield client
+    yield TestClient(app)
