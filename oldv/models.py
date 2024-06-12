@@ -13,3 +13,11 @@ class DocumentVector(BaseModel):
 
 class Document(BaseModel):
     content: DocumentContent
+
+
+class Documents(BaseModel):
+    documents: list[Document]
+
+
+class DocumentVectors(BaseModel):
+    document_vectors: list[DocumentVector]
