@@ -69,7 +69,7 @@ There are several settings that can be used to customize the behavior of `oldv`.
 
 #### `DocumentVectorizerCoreSettings`
 
-- `type`: `Literal["ALL_MINI_LM" | Literal["NOMIC_EMBED_TEXT"]`
+- `type`: `Literal["ALL_MINI_LM"] | Literal["NOMIC_EMBED_TEXT"]`
     - The type of the document vectorizer to use.
     - `ALL_MINI_LM`: Use `ALL_MINI_LM` document vectorizer.
     - `NOMIC_EMBED_TEXT`: Use `NOMIC_EMBED_TEXT` document vectorizer.
@@ -78,7 +78,7 @@ There are several settings that can be used to customize the behavior of `oldv`.
 
 You can pass settings as environment variables.
 
-- `OLDV_DOCUMENT_VECTORIZER_CORE_SETTINGS__TYPE`: `Literal["ALL_MINI_LM" | Literal["NOMIC_EMBED_TEXT"]`
+- `OLDV_DOCUMENT_VECTORIZER_CORE_SETTINGS__TYPE`: `Literal["ALL_MINI_LM"] | Literal["NOMIC_EMBED_TEXT"]`
     - The type of the document vectorizer to use.
     - `ALL_MINI_LM`: Use `ALL_MINI_LM` document vectorizer.
     - `NOMIC_EMBED_TEXT`: Use `NOMIC_EMBED_TEXT` document vectorizer.
