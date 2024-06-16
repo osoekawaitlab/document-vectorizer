@@ -65,6 +65,11 @@ dev=[
 ]
 prod=[
 ]
+docs=[
+    "sphinx",
+    "sphinx_rtd_theme",
+    "sphinx-autodoc-typehints",
+]
 
 [project.scripts]
 oldv = "oldv.interfaces.cli:main"
@@ -102,7 +107,7 @@ profile = "black"
 legacy_tox_ini = """
     [tox]
     skipsdist = true
-    envlist = py310
+    envlist = py310, docs
 
     [testenv]
     setenv = 
@@ -116,4 +121,11 @@ legacy_tox_ini = """
         pflake8 oldv/ tests/ stubs/
         mypy oldv --strict --show-traceback
         mypy tests --strict
+
+    [testenv:docs]
+    deps = 
+        -e .[docs]
+    commands =
+        sphinx-apidoc -o docs/ oldv
+        sphinx-build -b html docs/ docs/_build
 """
