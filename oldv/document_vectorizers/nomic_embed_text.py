@@ -7,16 +7,16 @@ from ..types import Vector
 from .base import SupportsBatchVectorizationMixIn
 
 
-class NomicEmbedTextVectorizerCore(SupportsBatchVectorizationMixIn):
+class NomicEmbedTextVectorizer(SupportsBatchVectorizationMixIn):
     def __init__(self, model: SentenceTransformer):
-        super(NomicEmbedTextVectorizerCore, self).__init__()
+        super(NomicEmbedTextVectorizer, self).__init__()
         self._model = model
 
     def vectorize(self, doc: Document) -> DocumentVector:
         return DocumentVector(vector=Vector.from_array(self._model.encode([doc.content])[0]))
 
     @classmethod
-    def create(cls) -> "NomicEmbedTextVectorizerCore":
+    def create(cls) -> "NomicEmbedTextVectorizer":
         return cls(SentenceTransformer("nomic-ai/nomic-embed-text-v1.5", trust_remote_code=True))
 
     def batch_vectorize(self, docs: Sequence[Document]) -> Sequence[DocumentVector]:

@@ -10,28 +10,28 @@ class BaseSettings(OltlBaseSettings):
     model_config = SettingsConfigDict(env_prefix="OLDV_")
 
 
-class DocumentVectorizerCoreType(str, Enum):
+class DocumentVectorizerType(str, Enum):
     ALL_MINI_LM = "ALL_MINI_LM"
     NOMIC_EMBED_TEXT = "NOMIC_EMBED_TEXT"
 
 
-class BaseDocumentVectorizerCoreSettings(BaseSettings):
-    type: DocumentVectorizerCoreType
+class BaseDocumentVectorizerSettings(BaseSettings):
+    type: DocumentVectorizerType
 
 
-class AllMiniLmDocumentVectorizerCoreSettings(BaseDocumentVectorizerCoreSettings):
-    type: Literal[DocumentVectorizerCoreType.ALL_MINI_LM] = DocumentVectorizerCoreType.ALL_MINI_LM
+class AllMiniLmDocumentVectorizerSettings(BaseDocumentVectorizerSettings):
+    type: Literal[DocumentVectorizerType.ALL_MINI_LM] = DocumentVectorizerType.ALL_MINI_LM
 
 
-class NomicEmbedTextDocumentVectorizerCoreSettings(BaseDocumentVectorizerCoreSettings):
-    type: Literal[DocumentVectorizerCoreType.NOMIC_EMBED_TEXT] = DocumentVectorizerCoreType.NOMIC_EMBED_TEXT
+class NomicEmbedTextDocumentVectorizerSettings(BaseDocumentVectorizerSettings):
+    type: Literal[DocumentVectorizerType.NOMIC_EMBED_TEXT] = DocumentVectorizerType.NOMIC_EMBED_TEXT
 
 
-DocumentVectorizerCoreSettings = Annotated[
-    Union[AllMiniLmDocumentVectorizerCoreSettings, NomicEmbedTextDocumentVectorizerCoreSettings],
+DocumentVectorizerSettings = Annotated[
+    Union[AllMiniLmDocumentVectorizerSettings, NomicEmbedTextDocumentVectorizerSettings],
     Field(discriminator="type"),
 ]
 
 
 class DocumentVectorizerAppSettings(BaseSettings):
-    document_vectorizer_core_settings: DocumentVectorizerCoreSettings
+    document_vectorizer_settings: DocumentVectorizerSettings

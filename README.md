@@ -24,7 +24,7 @@ There is `oldv.DocumentVectorizerApp` which is an interface class to use `oldv`.
 from oldv import DocumentVectorizerApp, Document
 from oldv.settings import DocumentVectorizerAppSettings
 
-settings = DocumentVectorizerAppSettings(document_vectorizer_core_settings={"type": "ALL_MINI_LM"})
+settings = DocumentVectorizerAppSettings(document_vectorizer_settings={"type": "ALL_MINI_LM"})
 app = DocumentVectorizerApp.create(settings=settings)
 res = app.vectorize(Document(content="This is a pen."))
 print(res.vector.array) # [-1.46203572e-02  4.90227267e-02...]
@@ -38,7 +38,7 @@ For more information about the settings, see the [settings](#settings) section.
 You can use `oldv` as a command line tool.
 
 ```bash
-OLDV_DOCUMENT_VECTORIZER_CORE_SETTINGS__TYPE=ALL_MINI_LM oldv vectorize "This is a pen." output.json
+OLDV_DOCUMENT_VECTORIZER_SETTINGS__TYPE=ALL_MINI_LM oldv vectorize "This is a pen." output.json
 ```
 
 This command will output the vector of the document "This is a pen." to `output.json`.
@@ -50,7 +50,7 @@ Settings can be passed as environment variables. For more information about the 
 REST API server is also available.
 
 ```bash
-OLDV_DOCUMENT_VECTORIZER_CORE_SETTINGS__TYPE=ALL_MINI_LM uvicorn oldv.interfaces.api.main:app
+OLDV_DOCUMENT_VECTORIZER_SETTINGS__TYPE=ALL_MINI_LM uvicorn oldv.interfaces.api.main:app
 ```
 
 This command will start a REST API server. You can access the server at `http://localhost:8000/docs`.
@@ -64,10 +64,10 @@ There are several settings that can be used to customize the behavior of `oldv`.
 
 #### `DocumentVectorizerAppSettings`
 
-- `document_vectorizer_core_settings`: `DocumentVectorizerCoreSettings`
-    - Settings for the core of `oldv`.
+- `document_vectorizer_settings`: `DocumentVectorizerSettings`
+    - Settings for the internal vectorizer.
 
-#### `DocumentVectorizerCoreSettings`
+#### `DocumentVectorizerSettings`
 
 - `type`: `Literal["ALL_MINI_LM"] | Literal["NOMIC_EMBED_TEXT"]`
     - The type of the document vectorizer to use.
@@ -78,7 +78,7 @@ There are several settings that can be used to customize the behavior of `oldv`.
 
 You can pass settings as environment variables.
 
-- `OLDV_DOCUMENT_VECTORIZER_CORE_SETTINGS__TYPE`: `Literal["ALL_MINI_LM"] | Literal["NOMIC_EMBED_TEXT"]`
+- `OLDV_DOCUMENT_VECTORIZER_SETTINGS__TYPE`: `Literal["ALL_MINI_LM"] | Literal["NOMIC_EMBED_TEXT"]`
     - The type of the document vectorizer to use.
     - `ALL_MINI_LM`: Use `ALL_MINI_LM` document vectorizer.
     - `NOMIC_EMBED_TEXT`: Use `NOMIC_EMBED_TEXT` document vectorizer.

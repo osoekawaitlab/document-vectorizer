@@ -7,16 +7,16 @@ from ..types import Vector
 from .base import SupportsBatchVectorizationMixIn
 
 
-class AllMiniLmVectorizerCore(SupportsBatchVectorizationMixIn):
+class AllMiniLmVectorizer(SupportsBatchVectorizationMixIn):
     def __init__(self, model: SentenceTransformer):
-        super(AllMiniLmVectorizerCore, self).__init__()
+        super(AllMiniLmVectorizer, self).__init__()
         self._model = model
 
     def vectorize(self, doc: Document) -> DocumentVector:
         return DocumentVector(vector=Vector.from_array(self._model.encode([doc.content])[0]))
 
     @classmethod
-    def create(cls) -> "AllMiniLmVectorizerCore":
+    def create(cls) -> "AllMiniLmVectorizer":
         return cls(SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2"))
 
     def batch_vectorize(self, docs: Sequence[Document]) -> Sequence[DocumentVector]:

@@ -1,30 +1,30 @@
 from collections.abc import Sequence
 
 from .document_vectorizers.base import (
-    BaseDocumentVectorizerCore,
+    BaseDocumentVectorizer,
     SupportsBatchVectorizationMixIn,
 )
-from .document_vectorizers.factory import create_document_vectorizer_core
+from .document_vectorizers.factory import create_document_vectorizer
 from .models import Document, DocumentVector
 from .settings import DocumentVectorizerAppSettings
 
 
 class DocumentVectorizerApp:
-    def __init__(self, core: BaseDocumentVectorizerCore):
-        self._core = core
+    def __init__(self, document_vectorizer: BaseDocumentVectorizer):
+        self._document_vectorizer = document_vectorizer
 
     @property
-    def core(self) -> BaseDocumentVectorizerCore:
-        return self._core
+    def document_vectorizer(self) -> BaseDocumentVectorizer:
+        return self._document_vectorizer
 
     def vectorize(self, doc: Document) -> DocumentVector:
-        return self.core.vectorize(doc)
+        return self.document_vectorizer.vectorize(doc)
 
     def batch_vectorize(self, docs: Sequence[Document]) -> Sequence[DocumentVector]:
-        if isinstance(self.core, SupportsBatchVectorizationMixIn):
-            return self.core.batch_vectorize(docs)
+        if isinstance(self.document_vectorizer, SupportsBatchVectorizationMixIn):
+            return self.document_vectorizer.batch_vectorize(docs)
         return [self.vectorize(doc) for doc in docs]
 
     @classmethod
     def create(cls, settings: DocumentVectorizerAppSettings) -> "DocumentVectorizerApp":
-        return cls(core=create_document_vectorizer_core(settings=settings.document_vectorizer_core_settings))
+        return cls(document_vectorizer=create_document_vectorizer(settings=settings.document_vectorizer_settings))
