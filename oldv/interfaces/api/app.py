@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from ...app import DocumentVectorizerApp
+from ...core import DocumentVectorizerApp
 from ...models import Document, Documents, DocumentVector, DocumentVectors
 from ...settings import DocumentVectorizerAppSettings
 

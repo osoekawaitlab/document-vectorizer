@@ -1,6 +1,6 @@
 from argparse import ArgumentParser
 
-from ..app import DocumentVectorizerApp
+from ..core import DocumentVectorizerApp
 from ..models import Document
 from ..settings import DocumentVectorizerAppSettings
 

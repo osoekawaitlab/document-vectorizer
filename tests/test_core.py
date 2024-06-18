@@ -1,6 +1,6 @@
 from unittest.mock import MagicMock, call
 
-from oldv.app import DocumentVectorizerApp
+from oldv.core import DocumentVectorizerApp
 from oldv.models import Document
 from oldv.settings import (
     AllMiniLmDocumentVectorizerSettings,
@@ -33,7 +33,7 @@ def test_batch_vectorize_with_supported_document_vectorizer(mock_vectorizer_supp
 
 
 def test_create(mocker: MagicMock, mock_vectorizer: MagicMock) -> None:
-    create_document_vectorizer = mocker.patch("oldv.app.create_document_vectorizer", return_value=mock_vectorizer)
+    create_document_vectorizer = mocker.patch("oldv.core.create_document_vectorizer", return_value=mock_vectorizer)
     settings = DocumentVectorizerAppSettings(document_vectorizer_settings=AllMiniLmDocumentVectorizerSettings())
     actual = DocumentVectorizerApp.create(settings=settings)
     assert actual.document_vectorizer == mock_vectorizer

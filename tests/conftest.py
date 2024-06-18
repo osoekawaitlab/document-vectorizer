@@ -6,7 +6,7 @@ from fastapi.testclient import TestClient
 from pytest import fixture
 from pytest_mock import MockerFixture
 
-from oldv.app import DocumentVectorizerApp
+from oldv.core import DocumentVectorizerApp
 from oldv.document_vectorizers.base import (
     BaseDocumentVectorizer,
     SupportsBatchVectorizationMixIn,

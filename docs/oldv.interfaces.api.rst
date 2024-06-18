@@ -12,7 +12,6 @@ oldv.interfaces.api.app module
    :undoc-members:
    :show-inheritance:
 
-
 Module contents
 ---------------
 

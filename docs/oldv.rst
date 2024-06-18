@@ -13,10 +13,10 @@ Subpackages
 Submodules
 ----------
 
-oldv.app module
----------------
+oldv.core module
+----------------
 
-.. automodule:: oldv.app
+.. automodule:: oldv.core
    :members:
    :undoc-members:
    :show-inheritance:
