@@ -126,6 +126,6 @@ legacy_tox_ini = """
     deps = 
         -e .[docs]
     commands =
-        sphinx-apidoc -o docs/ oldv
+        sphinx-apidoc -o docs/ oldv oldv/interfaces/api/main.py
         sphinx-build -b html docs/ docs/_build
 """
