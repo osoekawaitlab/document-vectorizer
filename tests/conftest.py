@@ -6,7 +6,7 @@ from fastapi.testclient import TestClient
 from pytest import fixture
 from pytest_mock import MockerFixture
 
-from oldv.core import DocumentVectorizerApp
+from oldv.core import DocumentVectorizerCore
 from oldv.document_vectorizers.base import (
     BaseDocumentVectorizer,
     SupportsBatchVectorizationMixIn,
@@ -26,7 +26,7 @@ def mock_vectorizer_supports_batch() -> MagicMock:
 
 @fixture
 def mock_document_vectorizer_app() -> MagicMock:
-    return MagicMock(spec=DocumentVectorizerApp)
+    return MagicMock(spec=DocumentVectorizerCore)
 
 
 @fixture

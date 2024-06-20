@@ -1,14 +1,14 @@
 from fastapi import FastAPI
 
-from ...core import DocumentVectorizerApp
+from ...core import DocumentVectorizerCore
 from ...models import Document, Documents, DocumentVector, DocumentVectors
-from ...settings import DocumentVectorizerAppSettings
+from ...settings import DocumentVectorizerCoreSettings
 
 
 def gen_api_app() -> FastAPI:
-    settings = DocumentVectorizerAppSettings()
+    settings = DocumentVectorizerCoreSettings()
 
-    core = DocumentVectorizerApp.create(settings=settings)
+    core = DocumentVectorizerCore.create(settings=settings)
 
     app = FastAPI()
 

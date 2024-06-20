@@ -6,10 +6,10 @@ from .document_vectorizers.base import (
 )
 from .document_vectorizers.factory import create_document_vectorizer
 from .models import Document, DocumentVector
-from .settings import DocumentVectorizerAppSettings
+from .settings import DocumentVectorizerCoreSettings
 
 
-class DocumentVectorizerApp:
+class DocumentVectorizerCore:
     def __init__(self, document_vectorizer: BaseDocumentVectorizer):
         self._document_vectorizer = document_vectorizer
 
@@ -26,5 +26,5 @@ class DocumentVectorizerApp:
         return [self.vectorize(doc) for doc in docs]
 
     @classmethod
-    def create(cls, settings: DocumentVectorizerAppSettings) -> "DocumentVectorizerApp":
+    def create(cls, settings: DocumentVectorizerCoreSettings) -> "DocumentVectorizerCore":
         return cls(document_vectorizer=create_document_vectorizer(settings=settings.document_vectorizer_settings))
