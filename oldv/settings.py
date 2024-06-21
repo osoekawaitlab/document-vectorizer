@@ -35,3 +35,7 @@ DocumentVectorizerSettings = Annotated[
 
 class DocumentVectorizerCoreSettings(BaseSettings):
     document_vectorizer_settings: DocumentVectorizerSettings
+
+
+class DocumentVectorizerAppSettings(BaseSettings):
+    core: DocumentVectorizerCoreSettings
