@@ -45,15 +45,15 @@ This command will output the vector of the document "This is a pen." to `output.
 Settings can be passed as environment variables. For more information about the settings, see the [settings](#settings) section.
 
 
-### Use as a REST API
+### Use as a Web API
 
-REST API server is also available.
+Web API server is also available.
 
 ```bash
-OLDV_DOCUMENT_VECTORIZER_SETTINGS__TYPE=ALL_MINI_LM uvicorn oldv.interfaces.api.main:app
+OLDV_DOCUMENT_VECTORIZER_SETTINGS__TYPE=ALL_MINI_LM uvicorn oldv.interfaces.web_api.main:app
 ```
 
-This command will start a REST API server. You can access the server at `http://localhost:8000/docs`.
+This command will start a Web API server. You can access the server at `http://localhost:8000/docs`.
 
 
 ## Settings

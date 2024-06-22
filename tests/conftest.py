@@ -11,7 +11,7 @@ from oldv.document_vectorizers.base import (
     BaseDocumentVectorizer,
     SupportsBatchVectorizationMixIn,
 )
-from oldv.interfaces.api.app import gen_api_app
+from oldv.interfaces.web_api.app import gen_api_app
 
 
 @fixture
