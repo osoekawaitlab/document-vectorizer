@@ -1,16 +1,16 @@
 from ..settings import (
-    AllMiniLmDocumentVectorizerSettings,
-    DocumentVectorizerSettings,
-    NomicEmbedTextDocumentVectorizerSettings,
+    AllMiniLmDocumentVectorizerModelSettings,
+    DocumentVectorizerModelSettings,
+    NomicEmbedTextDocumentVectorizerModelSettings,
 )
 from .all_minilm import AllMiniLmVectorizer
 from .base import BaseDocumentVectorizer
 from .nomic_embed_text import NomicEmbedTextVectorizer
 
 
-def create_document_vectorizer(settings: DocumentVectorizerSettings) -> BaseDocumentVectorizer:
-    if isinstance(settings, AllMiniLmDocumentVectorizerSettings):
+def create_document_vectorizer(settings: DocumentVectorizerModelSettings) -> BaseDocumentVectorizer:
+    if isinstance(settings, AllMiniLmDocumentVectorizerModelSettings):
         return AllMiniLmVectorizer.create()
-    elif isinstance(settings, NomicEmbedTextDocumentVectorizerSettings):
+    elif isinstance(settings, NomicEmbedTextDocumentVectorizerModelSettings):
         return NomicEmbedTextVectorizer.create()
     raise NotImplementedError()

@@ -15,26 +15,45 @@ class DocumentVectorizerModelType(str, Enum):
     NOMIC_EMBED_TEXT = "NOMIC_EMBED_TEXT"
 
 
-class BaseDocumentVectorizerSettings(BaseSettings):
+class BaseDocumentVectorizerModelSettings(BaseSettings):
     type: DocumentVectorizerModelType
 
 
-class AllMiniLmDocumentVectorizerSettings(BaseDocumentVectorizerSettings):
+class AllMiniLmDocumentVectorizerModelSettings(BaseDocumentVectorizerModelSettings):
     type: Literal[DocumentVectorizerModelType.ALL_MINI_LM] = DocumentVectorizerModelType.ALL_MINI_LM
 
 
-class NomicEmbedTextDocumentVectorizerSettings(BaseDocumentVectorizerSettings):
+class NomicEmbedTextDocumentVectorizerModelSettings(BaseDocumentVectorizerModelSettings):
     type: Literal[DocumentVectorizerModelType.NOMIC_EMBED_TEXT] = DocumentVectorizerModelType.NOMIC_EMBED_TEXT
 
 
-DocumentVectorizerSettings = Annotated[
-    Union[AllMiniLmDocumentVectorizerSettings, NomicEmbedTextDocumentVectorizerSettings],
+DocumentVectorizerModelSettings = Annotated[
+    Union[AllMiniLmDocumentVectorizerModelSettings, NomicEmbedTextDocumentVectorizerModelSettings],
     Field(discriminator="type"),
 ]
 
 
 class DocumentVectorizerCoreSettings(BaseSettings):
-    document_vectorizer_settings: DocumentVectorizerSettings
+    document_vectorizer_settings: DocumentVectorizerModelSettings
+
+
+class InterfaceType(str, Enum):
+    WEB_API = "WEB_API"
+    CLI = "CLI"
+
+
+class BaseInterfaceSettings(BaseSettings):
+    type: InterfaceType
+
+
+class WebApiInterfaceSettings(BaseInterfaceSettings):
+    type: Literal[InterfaceType.WEB_API] = InterfaceType.WEB_API
+    port: int
+    host: str
+
+
+class CliInterfaceSettings(BaseInterfaceSettings):
+    type: Literal[InterfaceType.CLI] = InterfaceType.CLI
 
 
 class DocumentVectorizerAppSettings(BaseSettings):
