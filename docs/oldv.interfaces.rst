@@ -7,7 +7,7 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   oldv.interfaces.api
+   oldv.interfaces.web_api
 
 Submodules
 ----------
